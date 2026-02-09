@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "type": "single",
+    "question": "Pytanie pojedyncze?",
+    "time": 15,
+    "answers": ["A", "B", "C", "D"],
+    "correct": ["A"]
+  },
+  {
+    "id": 2,
+    "type": "bool",
+    "question": "Czy to prawda?",
+    "time": 10,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Fałsz"]
+  },
+  {
+    "id": 3,
+    "type": "multi",
+    "question": "Wybierz dwa poprawne",
+    "time": 20,
+    "answers": ["A", "B", "C", "D"],
+    "correct": ["A", "C"]
+  },
+  {
+    "id": 4,
+    "type": "match",
+    "question": "Dopasuj elementy",
+    "time": 30,
+    "pairs": {
+      "Lewy1": "Prawy1",
+      "Lewy2": "Prawy2"
+    }
+  }
+]
