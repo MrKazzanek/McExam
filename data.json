@@ -2,35 +2,269 @@
   {
     "id": 1,
     "type": "single",
-    "question": "Pytanie pojedyncze?",
+    "question": "Ile bloków żelaza potrzeba, aby stworzyć Iron Golema?",
     "time": 15,
-    "answers": ["A", "B", "C", "D"],
-    "correct": ["A"]
+    "answers": ["2", "3", "4", "5"],
+    "correct": ["4"]
   },
   {
     "id": 2,
+    "type": "single",
+    "question": "Jaki jest maksymalny poziom zaklęcia 'Ostrość' (Sharpness) bez komend?",
+    "time": 15,
+    "answers": ["III", "IV", "V", "VI"],
+    "correct": ["V"]
+  },
+  {
+    "id": 3,
     "type": "bool",
-    "question": "Czy to prawda?",
+    "question": "Czy spanie w Netherze powoduje eksplozję łóżka?",
+    "time": 10,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Prawda"]
+  },
+  {
+    "id": 4,
+    "type": "match",
+    "question": "Dopasuj moba do biomu, w którym naturalnie występuje:",
+    "time": 30,
+    "pairs": {
+      "Husk": "Pustynia",
+      "Stray": "Lodowe Równiny",
+      "Mooshroom": "Wyspa Grzybowa",
+      "Witch": "Bagna"
+    }
+  },
+  {
+    "id": 5,
+    "type": "multi",
+    "question": "Wybierz bloki, na które działa grawitacja (opadają):",
+    "time": 25,
+    "answers": ["Piasek", "Ziemia", "Żwir", "Kowadło", "Obsydian"],
+    "correct": ["Piasek", "Żwir", "Kowadło"]
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "question": "Z jakiego materiału wykonuje się wędkę?",
+    "time": 15,
+    "answers": ["Patyki i Pióra", "Patyki i Nić", "Deski i Nić", "Żelazo i Nić"],
+    "correct": ["Patyki i Nić"]
+  },
+  {
+    "id": 7,
+    "type": "bool",
+    "question": "Czy TNT odpalone w wodzie niszczy otaczające bloki?",
+    "time": 12,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Fałsz"]
+  },
+  {
+    "id": 8,
+    "type": "match",
+    "question": "Dopasuj surowiec do przepalanego bloku:",
+    "time": 30,
+    "pairs": {
+      "Piasek": "Szkło",
+      "Glina": "Cegła",
+      "Drewno": "Węgiel drzewny",
+      "Cobblestone": "Kamień"
+    }
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "question": "Który villager (osadnik) sprzedaje zaklęte książki?",
+    "time": 15,
+    "answers": ["Kapłan (Cleric)", "Bibliotekarz (Librarian)", "Kartograf", "Rybak"],
+    "correct": ["Bibliotekarz (Librarian)"]
+  },
+  {
+    "id": 10,
+    "type": "multi",
+    "question": "Które z poniższych mobów są agresywne (hostile) w dzień na powierzchni?",
+    "time": 20,
+    "answers": ["Zombie", "Creeper", "Szkielet", "Wiedźma", "Owca"],
+    "correct": ["Creeper", "Wiedźma"]
+  },
+  {
+    "id": 11,
+    "type": "bool",
+    "question": "Czy Złote Jabłko (Enchanted) daje efekt 'Resistance' (Odporność)?",
+    "time": 15,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Prawda"]
+  },
+  {
+    "id": 12,
+    "type": "single",
+    "question": "Jaki kolor barwnika otrzymasz z kaktusa?",
+    "time": 15,
+    "answers": ["Żółty", "Limonkowy", "Zielony", "Czarny"],
+    "correct": ["Zielony"]
+  },
+  {
+    "id": 13,
+    "type": "match",
+    "question": "Dopasuj narzędzie do bloku, który kopie najszybciej:",
+    "time": 25,
+    "pairs": {
+      "Siekiera": "Drewno",
+      "Kilof": "Kamień",
+      "Łopata": "Ziemia",
+      "Motyka": "Gąbka / Liście"
+    }
+  },
+  {
+    "id": 14,
+    "type": "multi",
+    "question": "Wybierz składniki potrzebne do zrobienia Ciasta (Cake):",
+    "time": 25,
+    "answers": ["Mleko", "Kakao", "Cukier", "Jajko", "Pszenica"],
+    "correct": ["Mleko", "Cukier", "Jajko", "Pszenica"]
+  },
+  {
+    "id": 15,
+    "type": "bool",
+    "question": "Czy Smok Kresu (Ender Dragon) jest niewrażliwy na strzały?",
     "time": 10,
     "answers": ["Prawda", "Fałsz"],
     "correct": ["Fałsz"]
   },
   {
-    "id": 3,
-    "type": "multi",
-    "question": "Wybierz dwa poprawne",
-    "time": 20,
-    "answers": ["A", "B", "C", "D"],
-    "correct": ["A", "C"]
+    "id": 16,
+    "type": "single",
+    "question": "Ile obsydianu potrzeba minimalnie, aby zbudować działający portal do Netheru?",
+    "time": 15,
+    "answers": ["8", "10", "12", "14"],
+    "correct": ["10"]
   },
   {
-    "id": 4,
+    "id": 17,
     "type": "match",
-    "question": "Dopasuj elementy",
+    "question": "Dopasuj drop do moba:",
+    "time": 25,
+    "pairs": {
+      "Creeper": "Proch",
+      "Pająk": "Nić",
+      "Blaze": "Płomienna różdżka",
+      "Enderman": "Perła Kresu"
+    }
+  },
+  {
+    "id": 18,
+    "type": "single",
+    "question": "Który kilof jest wymagany, aby wydobyć obsydian?",
+    "time": 15,
+    "answers": ["Żelazny", "Złoty", "Diamentowy", "Kamienny"],
+    "correct": ["Diamentowy"]
+  },
+  {
+    "id": 19,
+    "type": "bool",
+    "question": "Czy mleko usuwa wszystkie efekty mikstur (dobre i złe)?",
+    "time": 12,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Prawda"]
+  },
+  {
+    "id": 20,
+    "type": "multi",
+    "question": "Zaznacz wymiary dostępne w 'czystym' Minecraft (Vanilla):",
+    "time": 20,
+    "answers": ["Overworld", "Aether", "Nether", "Twilight Forest", "The End"],
+    "correct": ["Overworld", "Nether", "The End"]
+  },
+  {
+    "id": 21,
+    "type": "match",
+    "question": "Dopasuj blok profesji do Villagera:",
     "time": 30,
     "pairs": {
-      "Lewy1": "Prawy1",
-      "Lewy2": "Prawy2"
+      "Pulpit (Lectern)": "Bibliotekarz",
+      "Kompostownik": "Rolnik",
+      "Piec hutniczy": "Płatnerz",
+      "Kocioł": "Garbarz"
+    }
+  },
+  {
+    "id": 22,
+    "type": "single",
+    "question": "Jak nazywa się boss, którego przyzywa się z Piasku Dusz i Czaszek Witherowych Szkieletów?",
+    "time": 15,
+    "answers": ["Warden", "Wither", "Ender Dragon", "Elder Guardian"],
+    "correct": ["Wither"]
+  },
+  {
+    "id": 23,
+    "type": "bool",
+    "question": "Czy dynia założona na głowę chroni przed wzrokiem Endermana?",
+    "time": 12,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Prawda"]
+  },
+  {
+    "id": 24,
+    "type": "multi",
+    "question": "Które z poniższych przedmiotów mogą posłużyć jako paliwo w piecu?",
+    "time": 25,
+    "answers": ["Węgiel", "Deski", "Wiaderko lawy", "Złoty kilof", "Kaktus"],
+    "correct": ["Węgiel", "Deski", "Wiaderko lawy"]
+  },
+  {
+    "id": 25,
+    "type": "single",
+    "question": "Ile punktów głodu przywraca Pieczony Kurczak?",
+    "time": 15,
+    "answers": ["4", "5", "6", "8"],
+    "correct": ["6"]
+  },
+  {
+    "id": 26,
+    "type": "match",
+    "question": "Dopasuj składnik mikstury do efektu:",
+    "time": 30,
+    "pairs": {
+      "Cukier": "Szybkość",
+      "Łza Ghasta": "Regeneracja",
+      "Rozdymka": "Oddychanie pod wodą",
+      "Magma Cream": "Odp. na ogień"
+    }
+  },
+  {
+    "id": 27,
+    "type": "bool",
+    "question": "Czy krowy można rozmnażać za pomocą marchewki?",
+    "time": 10,
+    "answers": ["Prawda", "Fałsz"],
+    "correct": ["Fałsz"]
+  },
+  {
+    "id": 28,
+    "type": "multi",
+    "question": "Wybierz rudy, które występują w Netherze:",
+    "time": 20,
+    "answers": ["Kwarc", "Złoto", "Diament", "Ancient Debris", "Szmaragd"],
+    "correct": ["Kwarc", "Złoto", "Ancient Debris"]
+  },
+  {
+    "id": 29,
+    "type": "single",
+    "question": "Co wypada z owcy po zabiciu jej, jeśli nie użyto nożyc?",
+    "time": 15,
+    "answers": ["Nic", "Tylko mięso", "Wełna i mięso", "Tylko wełna"],
+    "correct": ["Wełna i mięso"]
+  },
+  {
+    "id": 30,
+    "type": "match",
+    "question": "Dopasuj strukturę do biomu/wymiaru:",
+    "time": 30,
+    "pairs": {
+      "Twierdza (Fortress)": "Nether",
+      "Miasto Kresu": "The End",
+      "Piramida": "Pustynia",
+      "Igloo": "Śnieżna Tundra"
     }
   }
 ]
