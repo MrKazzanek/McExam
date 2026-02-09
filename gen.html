@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Pytań Minecraft</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-hover: #1557b0;
+            --bg: #f0f2f5;
+            --surface: #ffffff;
+            --text: #202124;
+            --border: #dadce0;
+            --success: #188038;
+            --danger: #d93025;
+        }
+
+        * { box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+            height: fit-content;
+        }
+
+        h1 { margin-top: 0; color: var(--text); font-size: 24px; }
+        h2 { font-size: 18px; margin-bottom: 15px; color: var(--primary); }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 14px; color: #5f6368; }
+        
+        input[type="text"], input[type="number"], select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border: 2px solid var(--primary);
+            padding: 9px 11px;
+        }
+
+        /* Dynamic Options Area */
+        .option-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+        .option-check { width: 20px; height: 20px; cursor: pointer; }
+        .remove-btn {
+            background: #fce8e6; color: var(--danger); border: none;
+            width: 30px; height: 30px; border-radius: 50%;
+            cursor: pointer; font-weight: bold; display: flex;
+            align-items: center; justify-content: center;
+        }
+        .remove-btn:hover { background: #fad2cf; }
+
+        /* Buttons */
+        .btn {
+            background: var(--primary); color: white; border: none;
+            padding: 10px 20px; border-radius: 4px; font-weight: 500;
+            cursor: pointer; text-transform: uppercase; font-size: 14px;
+            letter-spacing: 0.5px; width: 100%;
+        }
+        .btn:hover { background: var(--primary-hover); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--primary); margin-bottom: 10px; }
+        .btn-outline:hover { background: #e8f0fe; }
+        .btn-success { background: var(--success); }
+        .btn-success:hover { background: #137333; }
+
+        /* Preview Area */
+        .json-preview {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex; justify-content: space-between; margin-bottom: 20px;
+            font-size: 14px; color: #5f6368;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- LEFT: BUILDER -->
+    <div class="card">
+        <h1>Kreator Pytań</h1>
+        
+        <div class="form-group">
+            <label>Typ Pytania</label>
+            <select id="q-type" onchange="renderOptions()">
+                <option value="single">Pojedynczy Wybór (a, b, c, d)</option>
+                <option value="multi">Wielokrotny Wybór (Kilka poprawnych)</option>
+                <option value="bool">Prawda / Fałsz</option>
+                <option value="match">Dopasowywanie (Pary)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Treść Pytania</label>
+            <input type="text" id="q-text" placeholder="Np. Ile HP ma Owca?">
+        </div>
+
+        <div class="form-group">
+            <label>Czas na odpowiedź (sekundy)</label>
+            <input type="number" id="q-time" value="15" min="5">
+        </div>
+
+        <div class="form-group">
+            <label>Odpowiedzi / Pary</label>
+            <div id="options-container">
+                <!-- Dynamic content inserted here -->
+            </div>
+            <button class="btn btn-outline" id="add-opt-btn" onclick="addOptionField()">+ Dodaj opcję</button>
+        </div>
+
+        <button class="btn" onclick="addQuestion()">Dodaj Pytanie do Listy</button>
+        <div id="error-msg" style="color: var(--danger); margin-top: 10px; font-size: 14px;"></div>
+    </div>
+
+    <!-- RIGHT: PREVIEW -->
+    <div class="card">
+        <h1>Podgląd Pliku (data.json)</h1>
+        <div class="stats">
+            <span id="q-count">Ilość pytań: 0</span>
+            <span style="color: var(--primary);">Format JSON</span>
+        </div>
+        
+        <div class="json-preview" id="json-output">[]</div>
+
+        <div style="display: flex; gap: 10px;">
+            <button class="btn" onclick="copyJSON()">Kopiuj Kod</button>
+            <button class="btn btn-success" onclick="downloadJSON()">Pobierz data.json</button>
+        </div>
+        <button class="btn btn-outline" style="margin-top: 10px; border-color: var(--danger); color: var(--danger);" onclick="clearAll()">Wyczyść wszystko</button>
+    </div>
+
+</div>
+
+<script>
+    let questions = [];
+    let currentId = 1;
+
+    // Initialize
+    window.onload = () => {
+        renderOptions();
+    };
+
+    function renderOptions() {
+        const type = document.getElementById('q-type').value;
+        const container = document.getElementById('options-container');
+        const addBtn = document.getElementById('add-opt-btn');
+        container.innerHTML = '';
+
+        if (type === 'bool') {
+            addBtn.style.display = 'none';
+            container.innerHTML = `
+                <div class="option-row">
+                    <input type="radio" name="bool-ans" value="Prawda" class="option-check" checked>
+                    <span>Prawda (Zaznacz jeśli to poprawna odp)</span>
+                </div>
+                <div class="option-row">
+                    <input type="radio" name="bool-ans" value="Fałsz" class="option-check">
+                    <span>Fałsz</span>
+                </div>
+            `;
+        } else {
+            addBtn.style.display = 'block';
+            addBtn.innerText = type === 'match' ? '+ Dodaj Parę' : '+ Dodaj Opcję';
+            // Add initial empty fields
+            if (type === 'match') {
+                addPairField();
+                addPairField();
+            } else {
+                addOptionField(); // 1
+                addOptionField(); // 2
+            }
+        }
+    }
+
+    function addOptionField() {
+        const type = document.getElementById('q-type').value;
+        const container = document.getElementById('options-container');
+        const div = document.createElement('div');
+        div.className = 'option-row';
+
+        const inputType = type === 'multi' ? 'checkbox' : 'radio';
+        
+        div.innerHTML = `
+            <input type="${inputType}" name="correct-ans" class="option-check" title="Zaznacz poprawną">
+            <input type="text" class="opt-text" placeholder="Treść odpowiedzi">
+            <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
+        `;
+        container.appendChild(div);
+    }
+
+    function addPairField() {
+        const container = document.getElementById('options-container');
+        const div = document.createElement('div');
+        div.className = 'option-row';
+        div.innerHTML = `
+            <input type="text" class="pair-key" placeholder="Lewa strona (np. Owca)" style="width: 45%">
+            <span style="font-weight:bold">→</span>
+            <input type="text" class="pair-val" placeholder="Prawa strona (np. Wełna)" style="width: 45%">
+            <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
+        `;
+        container.appendChild(div);
+    }
+
+    function addQuestion() {
+        const type = document.getElementById('q-type').value;
+        const text = document.getElementById('q-text').value.trim();
+        const time = parseInt(document.getElementById('q-time').value);
+        const errorDiv = document.getElementById('error-msg');
+        
+        errorDiv.innerText = '';
+
+        if (!text) { errorDiv.innerText = 'Wpisz treść pytania!'; return; }
+        if (!time) { errorDiv.innerText = 'Podaj czas!'; return; }
+
+        let newQ = {
+            id: currentId++,
+            type: type,
+            question: text,
+            time: time
+        };
+
+        if (type === 'bool') {
+            const correctVal = document.querySelector('input[name="bool-ans"]:checked').value;
+            newQ.answers = ["Prawda", "Fałsz"];
+            newQ.correct = [correctVal];
+        } 
+        else if (type === 'match') {
+            let pairs = {};
+            const keys = document.querySelectorAll('.pair-key');
+            const vals = document.querySelectorAll('.pair-val');
+            
+            if(keys.length < 2) { errorDiv.innerText = 'Minimum 2 pary!'; return; }
+
+            for (let i = 0; i < keys.length; i++) {
+                const k = keys[i].value.trim();
+                const v = vals[i].value.trim();
+                if(k && v) pairs[k] = v;
+                else { errorDiv.innerText = 'Uzupełnij wszystkie pola par!'; return; }
+            }
+            newQ.pairs = pairs;
+        } 
+        else {
+            // Single / Multi
+            const rows = document.querySelectorAll('#options-container .option-row');
+            let answers = [];
+            let correct = [];
+
+            rows.forEach(row => {
+                const txt = row.querySelector('.opt-text').value.trim();
+                const isChecked = row.querySelector('.option-check').checked;
+                if (txt) {
+                    answers.push(txt);
+                    if (isChecked) correct.push(txt);
+                }
+            });
+
+            if (answers.length < 2) { errorDiv.innerText = 'Dodaj minimum 2 odpowiedzi!'; return; }
+            if (correct.length === 0) { errorDiv.innerText = 'Zaznacz poprawną odpowiedź (checkbox/radio)!'; return; }
+
+            newQ.answers = answers;
+            newQ.correct = correct;
+        }
+
+        // Add to list
+        questions.push(newQ);
+        updatePreview();
+        
+        // Reset Inputs (keep type)
+        document.getElementById('q-text').value = '';
+        renderOptions(); // Reset inputs
+        
+        // Scroll to preview
+        document.getElementById('json-output').scrollTop = document.getElementById('json-output').scrollHeight;
+    }
+
+    function updatePreview() {
+        const json = JSON.stringify(questions, null, 2);
+        document.getElementById('json-output').innerText = json;
+        document.getElementById('q-count').innerText = `Ilość pytań: ${questions.length}`;
+    }
+
+    function copyJSON() {
+        const text = document.getElementById('json-output').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Skopiowano do schowka!');
+        });
+    }
+
+    function downloadJSON() {
+        const text = document.getElementById('json-output').innerText;
+        const blob = new Blob([text], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "data.json";
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    }
+
+    function clearAll() {
+        if(confirm("Czy na pewno chcesz wyczyścić całą listę?")) {
+            questions = [];
+            currentId = 1;
+            updatePreview();
+        }
+    }
+</script>
+
+</body>
+</html>
